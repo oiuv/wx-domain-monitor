@@ -1,0 +1,14 @@
+# 域名列表文件
+# 每行一个域名，以 # 开头的行为注释，会被跳过
+# 修改此文件后，下次检测周期将自动生效（无需重启程序）
+
+# 请在此处添加您需要监测的域名
+# 格式：example.com
+# 示例：
+# www.baidu.com
+# www.qq.com
+# github.com
+
+# 您的实际域名列表：
+example.com
+your-domain.com
