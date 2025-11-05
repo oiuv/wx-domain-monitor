@@ -232,20 +232,22 @@ def run_monitor():
                 if re_code == -202:
                     print(f"✅ 正常 - {data_msg}")
                     success_count += 1
-                elif re_code in [-203, 0]:
-                    display_msg = data_msg if data_msg != 'ok' else '风险网址拦截（系统判断存在潜在恶意内容）'
+                elif re_code == -203:
+                    display_msg = data_msg
                     print(f"❌ 异常 - {display_msg}")
                     abnormal_count += 1
 
                     # 每次检测到异常都发送通知
                     print(f"   💬 发送异常通知到微信群...")
+                    send_webhook_notification(domain, {'status': 'abnormal', 'msg': display_msg})
+                elif re_code == 0:
+                    display_msg = '风险网址拦截，链接可能包含不安全的内容'
+                    print(f"❌ 异常 - {display_msg}")
+                    abnormal_count += 1
 
-                    # 构造通知结果格式
-                    notification_result = {
-                        'status': 'abnormal',
-                        'msg': '微信拦截，请联系微信申诉'
-                    }
-                    send_webhook_notification(domain, notification_result)
+                    # 每次检测到异常都发送通知
+                    print(f"   💬 发送异常通知到微信群...")
+                    send_webhook_notification(domain, {'status': 'abnormal', 'msg': display_msg})
                 else:
                     print(f"⚠️ 未知 - reCode: {re_code}, msg: {data_msg}")
                     unknown_count += 1

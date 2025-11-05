@@ -139,16 +139,16 @@ def main():
                 # 发送微信群通知
                 notification_result = {
                     'status': 'abnormal',
-                    'msg': '微信拦截，请联系微信申诉'
+                    'msg': display_msg
                 }
                 send_webhook_notification(url, notification_result)
             elif re_code == 0:
-                display_msg = "风险网址拦截（系统判断存在潜在恶意内容）"
+                display_msg = "风险网址拦截，链接可能包含不安全的内容"
                 print(f"❌ 异常 - {display_msg}")
                 # 发送微信群通知
                 notification_result = {
                     'status': 'abnormal',
-                    'msg': '微信拦截，请联系微信申诉'
+                    'msg': display_msg
                 }
                 send_webhook_notification(url, notification_result)
             else:
